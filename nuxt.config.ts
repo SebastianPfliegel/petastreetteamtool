@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@nuxt/eslint"],
   runtimeConfig: {
     public: {
-      endpointUrl: "",
+      endpointUrl: "https://cloud.appwrite.io/v1",
       projectId: "",
     },
   },
