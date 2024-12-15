@@ -1,7 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: false,
+  layout: "login",
 });
 </script>
 
-<template><div>Login</div></template>
+<template>
+  <GlassCard><p>Login</p></GlassCard>
+</template>
