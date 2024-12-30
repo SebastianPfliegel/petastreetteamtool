@@ -21,6 +21,10 @@ export default defineNuxtConfig({
       });
     },
   ],
+  routeRules: {
+    "/admin": { redirect: "/admin/teams" },
+  },
+  ssr: false,
   vite: {
     vue: {
       template: {
