@@ -32,6 +32,12 @@ export default defineNuxtPlugin((app) => {
   };
 
   const vuetify = createVuetify({
+    defaults: {
+      VTextField: {
+        color: "primary",
+        variant: "underlined",
+      },
+    },
     icons: {
       defaultSet: "md",
       aliases,
