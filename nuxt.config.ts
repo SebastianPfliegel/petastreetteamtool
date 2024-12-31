@@ -24,6 +24,11 @@ export default defineNuxtConfig({
   routeRules: {
     "/admin": { redirect: "/admin/teams" },
   },
+  runtimeConfig: {
+    public: {
+      applicationUrl: "http://localhost:3000",
+    },
+  },
   ssr: false,
   vite: {
     vue: {

@@ -4,23 +4,28 @@ definePageMeta({
   middleware: "logged-in",
 });
 
+const runtimeConfig = useRuntimeConfig();
+
 const { required } = useRules();
 
 const { account } = useAppwrite();
 
 const email = ref("");
-const password = ref("");
 const valid = ref<boolean | null>(null);
 const loading = ref(false);
 
-const login = () => {
+const sendPasswordRecovery = () => {
   if (!valid.value) return;
 
   loading.value = true;
+  const url = new URL(
+    "/admin/recover-password",
+    runtimeConfig.public.applicationUrl,
+  ).toString();
   account
-    .createEmailPasswordSession(email.value, password.value)
-    .then(() => {
-      navigateTo("/admin");
+    .createRecovery(email.value, url)
+    .then((value) => {
+      console.log(value);
     })
     .catch((reason) => {
       console.log(reason);
@@ -38,13 +43,13 @@ const login = () => {
         <v-form
           v-model="valid"
           class="flex-column pa-4"
-          @submit.prevent="login"
+          @submit.prevent="sendPasswordRecovery"
         >
           <h1 class="text-h4 text-center font-weight-bold mb-2">
             PETA Streetteam Tool
           </h1>
           <h2 class="text-h6 font-weight-regular text-center mb-8">
-            Admin-Login
+            Passwort zurücksetzen
           </h2>
           <v-text-field
             id="email"
@@ -54,22 +59,14 @@ const login = () => {
             label="E-Mail"
             :rules="[required('E-Mail')]"
           ></v-text-field>
-          <v-text-field
-            id="password"
-            v-model="password"
-            name="password"
-            type="password"
-            label="Passwort"
-            :rules="[required('Passwort')]"
-          ></v-text-field>
           <v-btn
             class="mb-5 ms-n2 text-none"
             size="small"
             slim
             color="primary"
             variant="text"
-            to="/admin/forgot-password"
-            >Passwort vergessen?</v-btn
+            to="/admin/login"
+            >Passwort doch nicht vergessen?</v-btn
           >
           <v-btn
             type="submit"
@@ -78,7 +75,7 @@ const login = () => {
             size="large"
             block
             :loading="loading"
-            >Login</v-btn
+            >Senden</v-btn
           >
         </v-form>
       </v-responsive>
