@@ -57,7 +57,7 @@ const sendPasswordRecovery = () => {
             name="email"
             type="email"
             label="E-Mail"
-            :rules="[required('E-Mail')]"
+            :rules="[required]"
           ></v-text-field>
           <v-btn
             class="mb-5 ms-n2 text-none"

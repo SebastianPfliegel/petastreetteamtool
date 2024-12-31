@@ -1,5 +1,5 @@
-const required = (field: string) => (value: unknown) =>
-  value ? true : `${field} fehlt`;
+const required = (value: unknown) =>
+  value ? true : "Feld darf nicht leer sein";
 
 const minLength = (field: string, length: number) => (value: unknown) => {
   if (typeof value !== "string" && !Array.isArray(value)) {
@@ -25,6 +25,9 @@ const maxLength = (field: string, length: number) => (value: unknown) => {
   return `${field} darf max. ${length} Zeichen lang sein`;
 };
 
+const matches = (fields: string, otherValue: unknown) => (value: unknown) =>
+  otherValue === value ? true : `${fields} stimmen nicht überein`;
+
 export const useRules = () => {
-  return { required, minLength, maxLength };
+  return { required, minLength, maxLength, matches };
 };

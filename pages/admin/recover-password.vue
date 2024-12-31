@@ -1,26 +1,30 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "empty",
-  middleware: "logged-in",
+  middleware: ["logged-in", "contains-secret"],
 });
 
-const { required } = useRules();
+const route = useRoute();
+
+const { required, minLength, maxLength, matches } = useRules();
 
 const { account } = useAppwrite();
 
-const email = ref("");
 const password = ref("");
+const confirmPassword = ref("");
 const valid = ref<boolean | null>(null);
 const loading = ref(false);
+const { userId, secret } = route.query;
 
-const login = () => {
+const changePassword = () => {
   if (!valid.value) return;
 
   loading.value = true;
   account
-    .createEmailPasswordSession(email.value, password.value)
-    .then(() => {
-      navigateTo("/admin");
+    .updateRecovery(userId as string, secret as string, password.value)
+    .then((value) => {
+      console.log(value);
+      navigateTo("/admin/login");
     })
     .catch((reason) => {
       console.log(reason);
@@ -38,47 +42,44 @@ const login = () => {
         <v-form
           v-model="valid"
           class="flex-column pa-4"
-          @submit.prevent="login"
+          validate-on="invalid-input"
+          @submit.prevent="changePassword()"
         >
           <h1 class="text-h4 text-center font-weight-bold mb-2">
             PETA Streetteam Tool
           </h1>
           <h2 class="text-h6 font-weight-regular text-center mb-8">
-            Admin-Login
+            Passwort zurücksetzen
           </h2>
           <v-text-field
-            id="email"
-            v-model="email"
-            name="email"
-            type="email"
-            label="E-Mail"
-            :rules="[required]"
-          ></v-text-field>
-          <v-text-field
-            id="current-password"
+            id="new-password"
             v-model="password"
-            name="current-password"
+            name="new-password"
             type="password"
             label="Passwort"
-            :rules="[required]"
+            :rules="[
+              required,
+              minLength('Passwort', 8),
+              maxLength('Passwort', 256),
+            ]"
+          ></v-text-field>
+          <v-text-field
+            id="confirm-password"
+            v-model="confirmPassword"
+            name="confirm-password"
+            type="password"
+            label="Passwort wiederholen"
+            :rules="[matches('Passwörter', password)]"
           ></v-text-field>
           <v-btn
-            class="mb-5 ms-n2 text-none"
-            size="small"
-            slim
-            color="primary"
-            variant="text"
-            to="/admin/forgot-password"
-            >Passwort vergessen?</v-btn
-          >
-          <v-btn
+            class="mt-5"
             type="submit"
             color="primary"
             flat
             size="large"
             block
             :loading="loading"
-            >Login</v-btn
+            >Passwort ändern</v-btn
           >
         </v-form>
       </v-responsive>
