@@ -8,7 +8,7 @@ const route = useRoute();
 
 const { required, minLength, maxLength, matches } = useRules();
 
-const { account } = useAppwrite();
+const store = useAuthStore();
 
 const password = ref("");
 const confirmPassword = ref("");
@@ -20,10 +20,9 @@ const changePassword = () => {
   if (!valid.value) return;
 
   loading.value = true;
-  account
+  store
     .updateRecovery(userId as string, secret as string, password.value)
-    .then((value) => {
-      console.log(value);
+    .then(() => {
       navigateTo("/admin/login");
     })
     .catch((reason) => {

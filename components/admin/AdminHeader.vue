@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const { account } = useAppwrite();
+const store = useAuthStore();
 
 const logout = () => {
-  account
-    .deleteSessions()
+  store
+    .logOut()
     .then(() => {
       navigateTo("/admin/login");
     })

@@ -6,7 +6,7 @@ definePageMeta({
 
 const { required } = useRules();
 
-const { account } = useAppwrite();
+const store = useAuthStore();
 
 const email = ref("");
 const password = ref("");
@@ -17,8 +17,8 @@ const login = () => {
   if (!valid.value) return;
 
   loading.value = true;
-  account
-    .createEmailPasswordSession(email.value, password.value)
+  store
+    .logIn(email.value, password.value)
     .then(() => {
       navigateTo("/admin");
     })

@@ -4,11 +4,9 @@ definePageMeta({
   middleware: "logged-in",
 });
 
-const runtimeConfig = useRuntimeConfig();
-
 const { required } = useRules();
 
-const { account } = useAppwrite();
+const store = useAuthStore();
 
 const email = ref("");
 const valid = ref<boolean | null>(null);
@@ -18,14 +16,10 @@ const sendPasswordRecovery = () => {
   if (!valid.value) return;
 
   loading.value = true;
-  const url = new URL(
-    "/admin/recover-password",
-    runtimeConfig.public.applicationUrl,
-  ).toString();
-  account
-    .createRecovery(email.value, url)
-    .then((value) => {
-      console.log(value);
+  store
+    .createRecovery(email.value)
+    .then(() => {
+      console.log("erfolg");
     })
     .catch((reason) => {
       console.log(reason);

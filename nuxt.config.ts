@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     "@nuxt/eslint",
+    "@pinia/nuxt",
     "nuxt-appwrite",
     (_options, nuxt) => {
       nuxt.hooks.hook("vite:extendConfig", (config) => {
