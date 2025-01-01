@@ -2,6 +2,7 @@ import "@fontsource/material-icons";
 
 import "vuetify/styles";
 import { createVuetify, type IconSet, type ThemeDefinition } from "vuetify";
+import { de } from "vuetify/locale";
 import { aliases, md } from "vuetify/iconsets/md";
 import github from "~/components/icon/IconGithub.vue";
 import instagram from "~/components/icon/IconInstagram.vue";
@@ -45,6 +46,10 @@ export default defineNuxtPlugin((app) => {
         md,
         custom: customIconSet,
       },
+    },
+    locale: {
+      locale: "de",
+      messages: { de },
     },
     theme: {
       defaultTheme: "light",

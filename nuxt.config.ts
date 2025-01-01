@@ -28,6 +28,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       applicationUrl: "http://localhost:3000",
+      databaseId: "",
+      collectionId: "",
     },
   },
   ssr: false,
