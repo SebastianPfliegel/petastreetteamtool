@@ -4,6 +4,10 @@ export const useTeamsStore = defineStore("teams", () => {
     public: { collectionId, databaseId },
   } = useRuntimeConfig();
 
+  const deleteTeam = (id: string) => {
+    return database.deleteDocument(databaseId, collectionId, id).then(() => {});
+  };
+
   const fetchPage = (page: number, itemsPerPage: number) => {
     return database
       .listDocuments(databaseId, collectionId, [
@@ -23,5 +27,5 @@ export const useTeamsStore = defineStore("teams", () => {
       });
   };
 
-  return { fetchPage };
+  return { deleteTeam, fetchPage };
 });

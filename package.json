@@ -14,21 +14,21 @@
   },
   "dependencies": {
     "@fontsource/material-icons": "^5.1.1",
-    "@nuxt/eslint": "^0.7.4",
+    "@nuxt/eslint": "^0.7.5",
     "@pinia/nuxt": "^0.9.0",
-    "eslint": "^9.17.0",
-    "nuxt": "^3.15.0",
+    "eslint": "^9.19.0",
+    "nuxt": "^3.15.3",
     "nuxt-appwrite": "^1.1.1",
-    "pinia": "^2.3.0",
+    "pinia": "^2.3.1",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
     "@types/eslint-config-prettier": "^6.11.3",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.0.1",
     "prettier": "^3.4.2",
-    "typescript": "^5.7.2",
+    "typescript": "^5.7.3",
     "vite-plugin-vuetify": "^2.0.4",
-    "vuetify": "^3.7.6"
+    "vuetify": "^3.7.7"
   }
 }
